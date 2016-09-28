@@ -7,17 +7,17 @@ final class ProductController: ResourceRepresentable {
     }
 
     func create(request: Request) throws -> ResponseRepresentable {
-        var Product = try request.Product()
-        try Product.save()
-        return Product
+        var product = try request.product()
+        try product.save()
+        return product
     }
 
-    func show(request: Request, Product: Product) throws -> ResponseRepresentable {
-        return Product
+    func show(request: Request, product: Product) throws -> ResponseRepresentable {
+        return product
     }
 
-    func delete(request: Request, Product: Product) throws -> ResponseRepresentable {
-        try Product.delete()
+    func delete(request: Request, product: Product) throws -> ResponseRepresentable {
+        try product.delete()
         return JSON([:])
     }
 
@@ -26,16 +26,16 @@ final class ProductController: ResourceRepresentable {
         return JSON([])
     }
 
-    func update(request: Request, Product: Product) throws -> ResponseRepresentable {
-        let new = try request.Product()
-        var Product = Product
-        Product.merge(updates: new)
-        try Product.save()
-        return Product
+    func update(request: Request, product: Product) throws -> ResponseRepresentable {
+        let new = try request.product()
+        var product = product
+        product.merge(updates: new)
+        try product.save()
+        return product
     }
 
-    func replace(request: Request, Product: Product) throws -> ResponseRepresentable {
-        try Product.delete()
+    func replace(request: Request, product: Product) throws -> ResponseRepresentable {
+        try product.delete()
         return try create(request: request)
     }
 
@@ -53,9 +53,8 @@ final class ProductController: ResourceRepresentable {
 }
 
 extension Request {
-    func Product() throws -> Product {
+    func product() throws -> Product {
         guard let json = json else { throw Abort.badRequest }
         return try Product(node: json)
-    //  return try Product()
     }
 }

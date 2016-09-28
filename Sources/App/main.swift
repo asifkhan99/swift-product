@@ -6,7 +6,7 @@ import VaporMySQL
 let drop = Droplet(
     availableMiddleware: ["cors" : CorsMiddleware()],
     serverMiddleware: ["file", "cors"],
-    preparations: [Todo.self],
+    preparations: [Product.self],
     providers: [VaporMySQL.Provider.self]
 )
 
@@ -14,17 +14,11 @@ let drop = Droplet(
 
 drop.get { _ in try drop.view.make("welcome") }
 
-// MARK: Tests Redirect
-
-drop.get("tests") { request in
-    guard let baseUrl = request.baseUrl else { throw Abort.badRequest }
-    let todosUrl = baseUrl + "todos"
-    return Response(redirect: "http://todobackend.com/specs/index.html?\(todosUrl)")
-}
-
 // MARK: /todos/
 
-drop.grouped(TodoURLMiddleware()).resource("todos", TodoController())
+//drop.grouped(TodoURLMiddleware()).resource("todos", TodoController())
+drop.grouped(ProductMiddleware()).resource("products", ProductController())
+
 
 // MARK: Serve
 
