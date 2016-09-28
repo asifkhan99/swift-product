@@ -11,7 +11,6 @@ RUN apt-get update && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-
 # Install Swift keys
 RUN wget -q -O - https://swift.org/keys/all-keys.asc | gpg --import - && \
     gpg --keyserver hkp://pool.sks-keyservers.net --refresh-keys Swift
@@ -49,7 +48,7 @@ ENV REPO_CLONE_URL ${REPO_CLONE_URL}
 RUN echo ${REPO_CLONE_URL}
 USER ${USERNAME}
 RUN git clone ${REPO_CLONE_URL}
-WORKDIR /vapor/swift-vapor-emergency
+WORKDIR /vapor/swift-product
 RUN swift build -Xswiftc -DNOJSON
 
 EXPOSE 8080

@@ -1,4 +1,9 @@
 Packages
 .build
+<<<<<<< HEAD
 xcuserdata
 *.xcodeproj
+=======
+*.xcodeproj
+/Config/secrets
+>>>>>>> 772ef2a018d8fd83ffae6b9e8716937a55474a33

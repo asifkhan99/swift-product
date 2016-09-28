@@ -1,4 +1,5 @@
 {
+<<<<<<< HEAD
     "name": "vapor-example",
     "scripts": {},
     "env": {},
@@ -9,4 +10,23 @@
             "url": "https://github.com/kylef/heroku-buildpack-swift"
         }
     ]
+=======
+  "name": "Todo",
+  "description": "A todobackend.com implementation",
+  "logo": "https://pbs.twimg.com/profile_images/760551690902900737/9vosg_bf.jpg",
+  "repository": "https://github.com/vapor/todo-example",
+  "keywords": ["swift", "vapor", "slack", "todo", "backend", "todobackend"],
+  "env": {
+  },
+  "formation": {
+  },
+  "addons": [
+    "jawsdb"
+  ],
+  "buildpacks": [
+    {
+      "url": "https://github.com/vapor/heroku-buildpack"
+    }
+  ]
+>>>>>>> 772ef2a018d8fd83ffae6b9e8716937a55474a33
 }

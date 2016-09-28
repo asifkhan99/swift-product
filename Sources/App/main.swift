@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import Vapor
 import HTTP
 
@@ -265,3 +266,30 @@ let port = drop.config["app", "port"]?.int ?? 80
 
 // Print what link to visit for default port
 drop.serve()
+=======
+import URI
+import HTTP
+import Vapor
+import VaporMySQL
+
+let drop = Droplet(
+    availableMiddleware: ["cors" : CorsMiddleware()],
+    serverMiddleware: ["file", "cors"],
+    preparations: [Product.self],
+    providers: [VaporMySQL.Provider.self]
+)
+
+// MARK: Landing Pages
+
+drop.get { _ in try drop.view.make("welcome") }
+
+// MARK: /todos/
+
+//drop.grouped(TodoURLMiddleware()).resource("todos", TodoController())
+drop.grouped(ProductMiddleware()).resource("products", ProductController())
+
+
+// MARK: Serve
+
+drop.run()
+>>>>>>> 772ef2a018d8fd83ffae6b9e8716937a55474a33
