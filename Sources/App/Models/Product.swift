@@ -7,8 +7,11 @@ struct Product: Model {
     var id: Node?
 
     var name: String?
-    var code: String?
-    var image: String?
+    var description: String?
+    var price: Double?
+	  var count: Int?
+	  var image_url_1: String?
+	  var image_url_2: String?
 
     // used by fluent internally
     var exists: Bool = false
@@ -20,8 +23,11 @@ extension Product: NodeConvertible {
     init(node: Node, in context: Context) throws {
         id = node["id"]
         name = node["name"]?.string
-        code = node["code"]?.string
-        image = node["image"]?.string
+        description = node["image"]?.string
+        price = node["price"]?.double ?? 0
+    	  count = node["count"]?.int ?? 0
+    	  image_url_1 = node["image_url_1"]?.string
+    	  image_url_2 = node["image_url_2"]?.string
     }
 
     func makeNode(context: Context) throws -> Node {
@@ -31,8 +37,12 @@ extension Product: NodeConvertible {
             [
                 "id": id,
                 "name": name,
-                "code": code,
-                "image": image
+                "description" : description,
+                "price" : price,
+            	  "count" : count,
+            	  "image_url_1" : image_url_1,
+            	  "image_url_2" : image_url_2
+
             ]
         )
     }
@@ -44,9 +54,12 @@ extension Product: Preparation {
     static func prepare(_ database: Database) throws {
         try database.create("products") { users in
             users.id()
-            users.string("name", optional: true)
-            users.string("code")
-            users.string("image", optional: true)
+            users.string("name")
+            users.string("description")
+            users.double("price")
+            users.int("count")
+            users.string("image_url_1")
+            users.string("image_url_2")
         }
     }
 
@@ -60,8 +73,11 @@ extension Product: Preparation {
 extension Product {
     mutating func merge(updates: Product) {
         id = updates.id ?? id
-        code = updates.code ?? code
         name = updates.name ?? name
-        image = updates.image ?? image
+        description = updates.description ?? description
+        price = updates.price ?? price
+        count = updates.count ?? count
+        image_url_1 = updates.image_url_1 ?? image_url_1
+        image_url_2 = updates.image_url_2 ?? image_url_2
     }
 }
